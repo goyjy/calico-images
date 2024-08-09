@@ -19,6 +19,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: calico-images-arm64.tar.gz
-          tag_name: 1.1.4
+          tag_name: 1.1.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
