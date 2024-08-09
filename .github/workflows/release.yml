@@ -13,18 +13,12 @@ jobs:
     name: Push Docker image to multiple registries
     runs-on: ubuntu-latest
     steps:
-      - name: Bump version and push tag
-        id: bump
-        uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
-          WITH_V: false
       - name: Save Docker Images
         run: docker pull --platform arm64 calico/kube-controllers:v3.27.3;docker pull --platform arm64 calico/cni:v3.27.3;docker pull --platform arm64 calico/node:v3.27.3;docker save -o calico-images-arm64.tar.gz calico/kube-controllers:v3.27.3 calico/cni:v3.27.3 calico/node:v3.27.3
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files: calico-images-arm64.tar.gz
-          tag_name: ${{ steps.bump.outputs.new_tag }}
+          tag_name: ${{ env.GITDATE }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
