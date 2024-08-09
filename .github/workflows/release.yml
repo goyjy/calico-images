@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Save Docker Images
-        run: echo "FROM --platform=amd64 calico/kube-controllers:v3.27.3" > Dockerfile;echo 'ENTRYPOINT ["/test"]' >> Dockerfile;docker build --platform=amd64 -t test/kube-controllers:v3.27.3 .;echo "FROM --platform=amd64 calico/cni:v3.27.3" > Dockerfile;echo 'ENTRYPOINT ["/test"]' >> Dockerfile;docker build --platform=amd64 -t test/cni:v3.27.3 .;echo "FROM --platform=amd64 calico/node:v3.27.3" > Dockerfile;echo 'ENTRYPOINT ["/test"]' >> Dockerfile;docker build --platform=amd64 -t test/node:v3.27.3 .;docker images;docker version;docker save -o calico-images-amd64.tar.gz test/kube-controllers:v3.27.3 test/cni:v3.27.3 test/node:v3.27.3
+        run: docker pull --platform arm64 calico/kube-controllers:v3.27.3;docker pull --platform arm64 calico/cni:v3.27.3;docker pull --platform arm64 calico/node:v3.27.3;docker save -o calico-images-arm64.tar.gz calico/kube-controllers:v3.27.3 calico/cni:v3.27.3 calico/node:v3.27.3
       - name: Release
         uses: shoothzj/latest-release-action@v1
         with:
-          files: calico-images-amd64.tar.gz
+          files: calico-images-arm64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
