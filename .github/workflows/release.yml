@@ -13,21 +13,12 @@ jobs:
     name: Push Docker image to multiple registries
     runs-on: ubuntu-latest
     steps:
-      - name: Tag the repository
-        id: tag
-        run: |
-          # See https://docs.github.com/en/get-started/using-git/dealing-with-special-characters-in-branch-and-tag-names
-          TAG=v$(date -Iseconds | sed 's/[T:\+]/-/g')
-          echo "$TAG"
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-          git tag -a $TAG -m "Published version $TAG" ${GITHUB_SHA}
-          git push origin $TAG
       - name: Save Docker Images
         run: docker pull --platform arm64 calico/kube-controllers:v3.27.3;docker pull --platform arm64 calico/cni:v3.27.3;docker pull --platform arm64 calico/node:v3.27.3;docker save -o calico-images-arm64.tar.gz calico/kube-controllers:v3.27.3 calico/cni:v3.27.3 calico/node:v3.27.3
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files: calico-images-arm64.tar.gz
-          tag_name: ${{ steps.tag.outputs.tag }}
+          tag_name: 1.1.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
