@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Save Docker Images
-        run: docker pull --platform amd64 calico/kube-controllers:v3.27.3;docker pull --platform amd64 calico/cni:v3.27.3;docker pull --platform amd64 calico/node:v3.27.3;docker images;docker save -o calico-images-3.27.3-amd64.tar.gz calico/kube-controllers:v3.27.3 calico/cni:v3.27.3 calico/node:v3.27.3
+        run: docker pull --platform amd64 istio/pilot:1.22.6;docker pull --platform amd64 istio/proxyv2:1.22.6;docker images;docker save -o calico-images-3.27.3-amd64.tar.gz istio/proxyv2:1.22.6 docker.io/istio/pilot:1.22.6
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
