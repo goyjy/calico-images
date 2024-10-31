@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Save Docker Images
-        run: docker pull --platform amd64 istio/examples-bookinfo-details-v1:1.17.0;docker pull --platform amd64 istio/examples-bookinfo-ratings-v1:1.17.0;docker pull --platform amd64 istio/examples-bookinfo-reviews-v1:1.17.0;docker pull --platform amd64 istio/examples-bookinfo-reviews-v2:1.17.0;docker pull --platform amd64 istio/examples-bookinfo-reviews-v3:1.17.0;docker pull --platform amd64 istio/examples-bookinfo-productpage-v1:1.17.0;docker images;docker save -o calico-images-3.27.3-amd64.tar.gz istio/examples-bookinfo-details-v1:1.17.0 istio/examples-bookinfo-ratings-v1:1.17.0 istio/examples-bookinfo-reviews-v1:1.17.0 istio/examples-bookinfo-reviews-v2:1.17.0 istio/examples-bookinfo-reviews-v3:1.17.0 istio/examples-bookinfo-productpage-v1:1.17.0
+        run: docker pull --platform amd64 grafana/grafana:9.0.1;docker pull --platform amd64 jaegertracing/all-in-one:1.35;docker pull --platform amd64 quay.io/kiali/kiali:v1.67;docker pull --platform amd64 grafana/loki:2.7.3;docker pull --platform amd64 jimmidyson/configmap-reload:v0.8.0;docker pull --platform amd64 prom/prometheus:v2.41.0;docker images;docker save -o calico-images-3.27.3-amd64.tar.gz grafana/grafana:9.0.1 jaegertracing/all-in-one:1.35 quay.io/kiali/kiali:v1.67 grafana/loki:2.7.3 jimmidyson/configmap-reload:v0.8.0 prom/prometheus:v2.41.0
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files: calico-images-3.27.3-amd64.tar.gz
-          tag_name: 1.1.4
+          tag_name: 1.1.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
