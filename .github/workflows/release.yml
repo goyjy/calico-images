@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Save Docker Images
-        run: docker pull --platform arm64 calico/kube-controllers:v3.27.3;docker pull --platform arm64 calico/cni:v3.27.3;docker pull --platform arm64 calico/node:v3.27.3;docker save -o calico-images-arm64.tar.gz calico/kube-controllers:v3.27.3 calico/cni:v3.27.3 calico/node:v3.27.3
+        run: docker pull --platform arm64 calico/kube-controllers:v3.27.3;docker pull --platform arm64 calico/cni:v3.27.3;docker pull --platform arm64 calico/node:v3.27.3;docker save -o calico-images-3.27.3-arm64.tar.gz calico/kube-controllers:v3.27.3 calico/cni:v3.27.3 calico/node:v3.27.3
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
