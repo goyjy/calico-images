@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Save Docker Images
-        run: docker pull --platform amd64 grafana/grafana:9.0.1;docker pull --platform amd64 jaegertracing/all-in-one:1.35;docker pull --platform amd64 quay.io/kiali/kiali:v1.67;docker pull --platform amd64 grafana/loki:2.7.3;docker pull --platform amd64 jimmidyson/configmap-reload:v0.8.0;docker pull --platform amd64 prom/prometheus:v2.41.0;docker images;docker save -o calico-images-3.27.3-amd64.tar.gz grafana/grafana:9.0.1 jaegertracing/all-in-one:1.35 quay.io/kiali/kiali:v1.67 grafana/loki:2.7.3 jimmidyson/configmap-reload:v0.8.0 prom/prometheus:v2.41.0
+        run: docker pull --platform arm64 calico/kube-controllers:v3.27.3;docker pull --platform arm64 calico/cni:v3.27.3;docker pull --platform arm64 calico/node:v3.27.3;docker save -o calico-images-arm64.tar.gz calico/kube-controllers:v3.27.3 calico/cni:v3.27.3 calico/node:v3.27.3
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
